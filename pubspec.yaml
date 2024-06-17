@@ -1,0 +1,71 @@
+name: studioradin
+description: " Flutter project used for testing purposes, designed to evaluate and propose tasks for potential employment opportunities."
+version: 1.0.0+1
+environment:
+  sdk: '>=3.4.3 <4.0.0'
+
+
+dependencies:
+  animated_size_and_fade: ^4.0.0  # Animated widget that automatically adjusts its size and fades in/out
+  cached_network_image: ^3.3.1  # Widget that loads images from the network and caches them
+  cupertino_icons: ^1.0.6  # Cupertino-style icons for iOS-flavored design
+  firebase_messaging: ^15.0.0  # Firebase Cloud Messaging (FCM) for push notifications
+  flutter:  # Flutter SDK
+    sdk: flutter
+  flutter_local_notifications: ^17.1.2  # Plugin for displaying local notifications
+  flutter_spinkit: ^5.2.1  # Collection of animated loading indicators
+  flutter_staggered_animations: ^1.1.1  # Widget animations with staggered effects
+  flutter_svg: ^2.0.10+1  # SVG rendering and icon widget for Flutter
+
+  get: ^4.6.6  # State management library for Flutter applications
+  get_storage:  # Simple key-value pair storage library for Flutter
+  hasura_connect: ^4.0.0+4  # Dart client for Hasura GraphQL engine
+
+  intl: ^0.17.0  # Internationalization and localization support for Flutter
+  shared_preferences_cache_interceptor: ^1.0.0-dev.5  # Cache interceptor for shared_preferences
+  shamsi_date: ^1.0.2  # Shamsi (Jalali) calendar support for Flutter
+  sliding_up_panel: ^2.0.0+1  # Sliding up panel widget for Flutter apps
+  time_ago_provider: ^4.2.0  # Human-readable time ago provider for Flutter
+  salomon_bottom_bar: ^3.3.2  # Customizable bottom navigation bar for Flutter apps
+
+dev_dependencies:
+  build_runner: ^2.4.11  # Tool for running code generation and build tasks
+  flutter_driver:  # Flutter driver for testing UI interactions
+    sdk: flutter
+  flutter_lints: ^4.0.0  # Set of recommended lint rules for Flutter projects
+  flutter_test:  # Flutter test framework for unit and widget testing
+    sdk: flutter
+  http_mock_adapter: ^0.6.0  # Mock adapter for intercepting HTTP requests in Dart tests
+  integration_test:  # Integration testing framework for Flutter apps
+    sdk: flutter
+  mockito: ^5.4.2  # Dart mocking library for writing tests and mocks
+
+
+dependency_overrides:
+  http: ^1.1.0
+
+# The following section is specific to Flutter packages.
+flutter:
+
+
+  uses-material-design: true
+
+  assets:
+    - assets/svg/
+    - assets/images/
+
+  fonts:
+    - family: Dana
+      fonts:
+        - asset: assets/fonts/Dana-Regular.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/Dana-Medium.ttf
+          weight: 500
+          style: normal
+        - asset: assets/fonts/Dana-UltraBold.ttf
+          weight: 700
+          style: normal
+        - asset: assets/fonts/Dana-DemiBold.ttf
+          weight: 900
+          style: normal

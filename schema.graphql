@@ -1,0 +1,323 @@
+# Scalar types
+scalar Boolean
+scalar Int
+scalar String
+scalar bpchar
+scalar timestamptz
+scalar uuid
+
+# Input types
+input Boolean_comparison_exp {
+  _eq: Boolean
+  _neq: Boolean
+  _in: [Boolean!]
+  _nin: [Boolean!]
+}
+
+input String_comparison_exp {
+  _eq: String
+  _neq: String
+  _in: [String!]
+  _nin: [String!]
+  _like: String
+  _nlike: String
+}
+
+input bpchar_comparison_exp {
+  _eq: bpchar
+  _neq: bpchar
+  _in: [bpchar!]
+  _nin: [bpchar!]
+}
+
+input timestamptz_comparison_exp {
+  _eq: timestamptz
+  _neq: timestamptz
+  _in: [timestamptz!]
+  _nin: [timestamptz!]
+}
+
+input uuid_comparison_exp {
+  _eq: uuid
+  _neq: uuid
+  _in: [uuid!]
+  _nin: [uuid!]
+}
+
+# Enum types
+enum cursor_ordering {
+  ASC
+  DESC
+}
+
+enum order_by {
+  ASC
+  DESC
+}
+
+enum messages_select_column {
+  content
+  created_at
+  id
+  is_deleted
+  receiver_id
+  sender_id
+  updated_at
+}
+
+enum users_select_column {
+  created_at
+  email
+  full_name
+  id
+  is_deleted
+  password
+  profile_picture
+  updated_at
+}
+
+# Object types
+type loginOutput {
+  token: String!
+}
+
+type signupOutput {
+  token: String!
+}
+
+type messages {
+  content: String!
+  created_at: timestamptz!
+  id: uuid!
+  is_deleted: Boolean
+  receiver_id: uuid!
+  sender_id: uuid!
+  updated_at: timestamptz!
+  user: users!
+  userBySenderId: users!
+}
+
+type users {
+  created_at: timestamptz!
+  email: String!
+  full_name: String!
+  id: uuid!
+  is_deleted: Boolean
+  messages: [messages!]!
+  messagesBySenderId: [messages!]!
+  password: String!
+  profile_picture: String
+  updated_at: timestamptz!
+}
+
+type mutation_root {
+  login(email: String!, password: String!): loginOutput
+  signup(email: String!, password: String!, full_name: String!): signupOutput
+}
+
+type query_root {
+  messages: [messages!]!
+  messages_by_pk(id: uuid!): messages
+  users: [users!]!
+  users_by_pk(id: uuid!): users
+}
+
+type subscription_root {
+  messages: [messages!]!
+  messages_by_pk(id: uuid!): messages
+  messages_stream(batch_size: Int!, cursor: [messages_stream_cursor_input!], where: messages_bool_exp): [messages!]!
+  users: [users!]!
+  users_by_pk(id: uuid!): users
+  users_stream(batch_size: Int!, cursor: [users_stream_cursor_input!], where: users_bool_exp): [users!]!
+}
+
+# Input types for queries
+input messages_bool_exp {
+  _and: [messages_bool_exp!]
+  _not: messages_bool_exp
+  _or: [messages_bool_exp!]
+  content: String_comparison_exp
+  created_at: timestamptz_comparison_exp
+  id: uuid_comparison_exp
+  is_deleted: Boolean_comparison_exp
+  receiver_id: uuid_comparison_exp
+  sender_id: uuid_comparison_exp
+  updated_at: timestamptz_comparison_exp
+  user: users_bool_exp
+  userBySenderId: users_bool_exp
+}
+
+input users_bool_exp {
+  _and: [users_bool_exp!]
+  _not: users_bool_exp
+  _or: [users_bool_exp!]
+  created_at: timestamptz_comparison_exp
+  email: String_comparison_exp
+  full_name: String_comparison_exp
+  id: uuid_comparison_exp
+  is_deleted: Boolean_comparison_exp
+  messages: messages_bool_exp
+  messagesBySenderId: messages_bool_exp
+  password: String_comparison_exp
+  profile_picture: String_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+input messages_order_by {
+  content: order_by
+  created_at: order_by
+  id: order_by
+  is_deleted: order_by
+  receiver_id: order_by
+  sender_id: order_by
+  updated_at: order_by
+  user: users_order_by
+  userBySenderId: users_order_by
+}
+
+input users_order_by {
+  created_at: order_by
+  email: order_by
+  full_name: order_by
+  id: order_by
+  is_deleted: order_by
+  messages: messages_order_by
+  messagesBySenderId: messages_order_by
+  password: order_by
+  profile_picture: order_by
+  updated_at: order_by
+}
+
+input messages_stream_cursor_input {
+  initial_value: messages_stream_cursor_value_input!
+  ordering: cursor_ordering
+}
+
+input messages_stream_cursor_value_input {
+  content: String
+  created_at: timestamptz
+  id: uuid
+  is_deleted: Boolean
+  receiver_id: uuid
+  sender_id: uuid
+  updated_at: timestamptz
+}
+
+input users_stream_cursor_input {
+  initial_value: users_stream_cursor_value_input!
+  ordering: cursor_ordering
+}
+
+input users_stream_cursor_value_input {
+  created_at: timestamptz
+  email: String
+  full_name: String
+  id: uuid
+  is_deleted: Boolean
+  password: String
+  profile_picture: String
+  updated_at: timestamptz
+}
+
+# Introspection types
+type __Directive {
+  args: [__InputValue!]!
+  description: String
+  isRepeatable: Boolean!
+  locations: [__DirectiveLocation!]!
+  name: String!
+}
+
+enum __DirectiveLocation {
+  QUERY
+  MUTATION
+  SUBSCRIPTION
+  FIELD
+  FRAGMENT_DEFINITION
+  FRAGMENT_SPREAD
+  INLINE_FRAGMENT
+  VARIABLE_DEFINITION
+  SCHEMA
+  SCALAR
+  OBJECT
+  FIELD_DEFINITION
+  ARGUMENT_DEFINITION
+  INTERFACE
+  UNION
+  ENUM
+  ENUM_VALUE
+  INPUT_OBJECT
+  INPUT_FIELD_DEFINITION
+}
+
+type __EnumValue {
+  deprecationReason: String
+  description: String
+  isDeprecated: Boolean!
+  name: String!
+}
+
+type __Field {
+  args: [__InputValue!]!
+  deprecationReason: String
+  description: String
+  isDeprecated: Boolean!
+  name: String!
+  type: __Type!
+}
+
+type __InputValue {
+  defaultValue: String
+  description: String
+  name: String!
+  type: __Type!
+}
+
+type __Schema {
+  description: String
+  directives: [__Directive!]!
+  mutationType: __Type
+  queryType: __Type!
+  subscriptionType: __Type
+  types: [__Type!]!
+}
+
+type __Type {
+  description: String
+  enumValues(includeDeprecated: Boolean): [__EnumValue!]
+  fields(includeDeprecated: Boolean): [__Field!]
+  inputFields: [__InputValue!]
+  interfaces: [__Type!]
+  kind: __TypeKind!
+  name: String
+  ofType: __Type
+  possibleTypes: [__Type!]
+}
+
+enum __TypeKind {
+  SCALAR
+  OBJECT
+  INTERFACE
+  UNION
+  ENUM
+  INPUT_OBJECT
+  LIST
+  NON_NULL
+}
+
+
+#{
+#  __schema {
+#    types {
+#      name
+#      kind
+#      fields {
+#        name
+#        type {
+#          name
+#          kind
+#        }
+#      }
+#    }
+#  }
+#}
